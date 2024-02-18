@@ -13,6 +13,9 @@ elif [ "$1" == "production" ]; then
   COMPOSE_COMMAND="--env-file .env.production up --build -d"
 elif [ "$1" == "test" ]; then
   COMPOSE_COMMAND="-f docker/docker-compose.override.yaml --env-file .env.development up --build tester && docker compose down --remove-orphans"
+elif [ "$1" == "restart" ]; then
+  eval "docker compose -f docker/docker-compose.yaml down"
+  COMPOSE_COMMAND="--env-file .env.development up --build -d"
 elif [ "$1" == "stop" ]; then
   eval "docker compose -f docker/docker-compose.yaml down"
   exit 0
